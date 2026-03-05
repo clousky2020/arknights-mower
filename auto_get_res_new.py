@@ -374,7 +374,7 @@ class Arknights数据处理器:
                         "stageType": 值["stageType"],
                     }
                 )
-            if 值["stageType"] == "DAILY":
+            if 值["stageType"] == "DAILY":                
                 所有关卡.append(
                     {
                         "id": 关卡代码,
@@ -384,7 +384,7 @@ class Arknights数据处理器:
                         "apCost": 值["apCost"],
                         "difficulty": 值["difficulty"],
                         "diffGroup": 值["diffGroup"],
-                        "zoneNameSecond": "" if 值["zoneId"] in zones else "",
+                        "zoneNameSecond": zones[关卡ZONE]["zoneNameSecond"] if 值["zoneId"] in zones else "",
                         "stageType": 值["stageType"],
                     }
                 )

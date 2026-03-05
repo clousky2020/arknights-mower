@@ -708,6 +708,8 @@ class Recognizer:
         :return ret: 若匹配成功，则返回元素在游戏界面中出现的位置，否则返回 None
         """
         logger.debug(f"find: {res}")
+        normalized_res = str(res).replace("\\", "/")
+        force_feature_match = "navigation/stage/" in normalized_res
 
         color = {
             "1800": (158, 958),
@@ -808,7 +810,7 @@ class Recognizer:
             "recruit/stone": 0.7,
         }
 
-        if res in color:
+        if not force_feature_match and res in color:
             res_img = loadres(res)
             h, w, _ = res_img.shape
 
@@ -907,7 +909,7 @@ class Recognizer:
             "op_select_2": (95, 474),
         }
 
-        if res in template_matching:
+        if not force_feature_match and res in template_matching:
             threshold = 0.9
             if res in template_matching_score:
                 threshold = template_matching_score[res]
@@ -938,6 +940,8 @@ class Recognizer:
             "login_captcha",
             "control_central",
         ]
+        if force_feature_match:
+            dpi_aware = True
 
         if scope is None and threshold == 0.0:
             # if res == "arrange_check_in":

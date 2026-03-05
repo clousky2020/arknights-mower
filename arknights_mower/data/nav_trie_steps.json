@@ -1,0 +1,1230 @@
+{
+  "version": 1,
+  "stages": {
+    "TA-7": {
+      "updated_at": "2026-02-13T21:21:43",
+      "stage_type": "ACTIVITY",
+      "steps": [
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              291,
+              828
+            ],
+            "text": "<辞岁行>活动已开放",
+            "depth": 0
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1559,
+              655
+            ],
+            "text": "霜秋实录",
+            "depth": 1
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1863,
+              726
+            ],
+            "text": "TA-7"
+          }
+        }
+      ]
+    },
+    "0-1": {
+      "updated_at": "2026-02-28T19:52:39",
+      "stage_type": "MAIN",
+      "success": true,
+      "steps": [
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              959,
+              514
+            ],
+            "text": "0-1",
+            "success": true
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1427,
+              146
+            ],
+            "text": "0-1",
+            "success": true
+          }
+        }
+      ]
+    },
+    "TA-EX-1": {
+      "updated_at": "2026-02-17T10:39:30",
+      "stage_type": "UNKNOWN",
+      "success": true,
+      "steps": [
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              319,
+              828
+            ],
+            "text": "望春遗事”内关卡已开放"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1660,
+              802
+            ],
+            "text": "望春遗事"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              368,
+              397
+            ],
+            "text": "TA-EX-1",
+            "success": true
+          }
+        }
+      ]
+    },
+    "TA-5": {
+      "updated_at": "2026-02-28T19:45:07",
+      "stage_type": "UNKNOWN",
+      "success": true,
+      "steps": [
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              892,
+              260
+            ],
+            "text": "SIDESTORY"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1559,
+              655
+            ],
+            "text": "霜秋实录"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              621,
+              726
+            ],
+            "text": "TA-5",
+            "success": true
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1450,
+              145
+            ],
+            "text": "TA-5",
+            "success": true
+          }
+        }
+      ]
+    },
+    "OF-1": {
+      "updated_at": "2026-02-28T20:34:42",
+      "stage_type": "ACTIVITY",
+      "success": true,
+      "steps": [
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              490,
+              1014
+            ],
+            "text": "main_entry"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1690,
+              65
+            ],
+            "text": "open_overview"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1690,
+              65
+            ],
+            "text": "open_overview"
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              823,
+              657
+            ],
+            "text": "火蓝之心"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1699,
+              925
+            ],
+            "text": "进入活动"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              960,
+              370
+            ],
+            "text": "OF-1",
+            "success": true
+          }
+        }
+      ]
+    },
+    "15-1": {
+      "updated_at": "2026-02-28T20:36:45",
+      "stage_type": "MAIN",
+      "success": true,
+      "steps": [
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              490,
+              1014
+            ],
+            "text": "main_entry"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1690,
+              65
+            ],
+            "text": "open_overview"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1690,
+              65
+            ],
+            "text": "open_overview"
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              506,
+              815
+            ],
+            "text": "离解复合"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1699,
+              925
+            ],
+            "text": "前往章节"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              960,
+              659
+            ],
+            "text": "15-1",
+            "success": true
+          }
+        }
+      ]
+    }
+  },
+  "patterns": {
+    "TA-*": {
+      "updated_at": "2026-02-28T19:45:07",
+      "stage_type": "UNKNOWN",
+      "source_stage": "TA-5",
+      "success": true,
+      "steps": [
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              892,
+              260
+            ],
+            "text": "SIDESTORY"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1559,
+              655
+            ],
+            "text": "霜秋实录"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              621,
+              726
+            ],
+            "text": "TA-5",
+            "success": true
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1450,
+              145
+            ],
+            "text": "TA-5",
+            "success": true
+          }
+        }
+      ]
+    },
+    "0-*": {
+      "updated_at": "2026-02-28T19:52:39",
+      "stage_type": "MAIN",
+      "source_stage": "0-1",
+      "success": true,
+      "steps": [
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              959,
+              514
+            ],
+            "text": "0-1",
+            "success": true
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1427,
+              146
+            ],
+            "text": "0-1",
+            "success": true
+          }
+        }
+      ]
+    },
+    "TA-EX-*": {
+      "updated_at": "2026-02-17T10:39:30",
+      "stage_type": "UNKNOWN",
+      "source_stage": "TA-EX-1",
+      "success": true,
+      "steps": [
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              319,
+              828
+            ],
+            "text": "望春遗事”内关卡已开放"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1660,
+              802
+            ],
+            "text": "望春遗事"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              368,
+              397
+            ],
+            "text": "TA-EX-1",
+            "success": true
+          }
+        }
+      ]
+    },
+    "OF-*": {
+      "updated_at": "2026-02-28T20:34:42",
+      "stage_type": "ACTIVITY",
+      "source_stage": "OF-1",
+      "success": true,
+      "steps": [
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              490,
+              1014
+            ],
+            "text": "main_entry"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1690,
+              65
+            ],
+            "text": "open_overview"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1690,
+              65
+            ],
+            "text": "open_overview"
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              823,
+              657
+            ],
+            "text": "火蓝之心"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1699,
+              925
+            ],
+            "text": "进入活动"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              960,
+              370
+            ],
+            "text": "OF-1",
+            "success": true
+          }
+        }
+      ]
+    },
+    "15-*": {
+      "updated_at": "2026-02-28T20:36:45",
+      "stage_type": "MAIN",
+      "source_stage": "15-1",
+      "success": true,
+      "steps": [
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              490,
+              1014
+            ],
+            "text": "main_entry"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1690,
+              65
+            ],
+            "text": "open_overview"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1690,
+              65
+            ],
+            "text": "open_overview"
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -910
+            ]
+          }
+        },
+        {
+          "action": "swipe",
+          "payload": {
+            "start": [
+              960,
+              700
+            ],
+            "vector": [
+              0,
+              -280
+            ]
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              506,
+              815
+            ],
+            "text": "离解复合"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              1699,
+              925
+            ],
+            "text": "前往章节"
+          }
+        },
+        {
+          "action": "tap",
+          "payload": {
+            "pos": [
+              960,
+              659
+            ],
+            "text": "15-1",
+            "success": true
+          }
+        }
+      ]
+    }
+  }
+}

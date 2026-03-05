@@ -1,4 +1,5 @@
 import copy
+from hashlib import new
 import json
 import math
 import os
@@ -16,6 +17,7 @@ from arknights_mower.data import (
     agent_list,
     agent_profession,
     base_room_list,
+    stage_data_full,
     workshop_formula,
 )
 from arknights_mower.solvers.base_mixin import BaseMixin
@@ -23,6 +25,7 @@ from arknights_mower.solvers.credit import CreditSolver
 from arknights_mower.solvers.cultivate_depot import cultivate as cultivateDepotSolver
 from arknights_mower.solvers.depotREC import depotREC as DepotSolver
 from arknights_mower.solvers.mail import MailSolver
+from arknights_mower.solvers.navigation import NavigationSolver
 from arknights_mower.solvers.reclamation_algorithm import ReclamationAlgorithm
 from arknights_mower.solvers.record import (
     get_inventory_counts,
@@ -175,7 +178,82 @@ class BaseSchedulerSolver(SceneGraphSolver, BaseMixin):
         logMsg = "||".join([str(t) for t in self.tasks])
         logger.debug("当前任务: " + logMsg)
         save_log(logMsg, "{}" if not self.task else str(self.task), level="INFO")
-        return super().run()
+
+        # self.batch_navigate_all_stages_once()
+        solve = NavigationSolver(self.device, self.recog)
+        solve.run("15-1")
+        return
+        # return super().run()
+
+    def stage_pattern_key(self, stage_id: str) -> str:
+        """
+        Build a pattern key by splitting at the last '-'.
+        Examples: TA-7 -> TA-* ; EP-EX-3 -> EP-EX-* ; 0-1 -> 0-*.
+        """
+        if not stage_id:
+            return ""
+        norm = str(stage_id).strip().upper()
+        if "-" not in norm:
+            return f"{norm}-*"
+        head, _, _ = norm.rpartition("-")
+        return f"{head}-*"
+
+    def batch_navigate_all_stages_once(self):
+        logger.info("[AUTO_NAV] start: navigate all unique stage ids once")
+        # Keep insertion order and deduplicate ids from stage_data_full.
+        unique_stage_ids = []
+        seen = set()
+        for rec in stage_data_full:
+            sid = rec.get("id")
+            if not sid or sid in seen:
+                continue
+            seen.add(sid)
+            unique_stage_ids.append(sid)
+
+        logger.info(f"[AUTO_NAV] total unique stages: {len(unique_stage_ids)}")
+        passed_patterns = set()
+        passed_stages = []
+        failed_stages = []
+        skipped_stages = []
+
+        for idx, stage_id in enumerate(unique_stage_ids, start=1):
+            pattern_key = self.stage_pattern_key(stage_id)
+            if pattern_key in passed_patterns:
+                skipped_stages.append(stage_id)
+                logger.info(
+                    f"[AUTO_NAV] [{idx}/{len(unique_stage_ids)}] skip {stage_id} "
+                    f"(pattern {pattern_key} already passed)"
+                )
+                continue
+
+            logger.info(
+                f"[AUTO_NAV] [{idx}/{len(unique_stage_ids)}] navigate {stage_id} "
+                f"(pattern={pattern_key})"
+            )
+            try:
+                solve = NavigationSolver(self.device, self.recog)
+                ok = solve.run(stage_id)
+                if ok:
+                    passed_stages.append(stage_id)
+                    passed_patterns.add(pattern_key)
+                    logger.info(
+                        f"[AUTO_NAV] success: {stage_id}, mark pattern passed: {pattern_key}"
+                    )
+                    while self.scene() == Scene.UNKNOWN:
+                        self.back()
+                else:
+                    failed_stages.append(stage_id)
+                    logger.info(f"[AUTO_NAV] failed (no exception): {stage_id}")
+            except Exception as e:
+                failed_stages.append(stage_id)
+                logger.info(f"[AUTO_NAV] failed (exception): {stage_id}, err={e}")
+                self.sleep(1)
+                continue
+
+        logger.info(
+            f"[AUTO_NAV] done: success={len(passed_stages)}, "
+            f"failed={len(failed_stages)}, skipped_by_pattern={len(skipped_stages)}"
+        )
 
     def transition(self) -> None:
         if (scene := self.scene()) == Scene.INFRA_MAIN:
