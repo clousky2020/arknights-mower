@@ -1441,6 +1441,28 @@ class BaseSchedulerSolver(SceneGraphSolver, BaseMixin):
             save_exception(e)
             logger.exception(e)
 
+    def _on_training_completed(self):
+        """记录训练完成并自动推进下一级，防重复插入。"""
+        from arknights_mower.utils.mastery_db import (
+            get_current_plan,
+            get_in_progress_plan,
+            insert_plan,
+        )
+        plan = get_in_progress_plan()
+        if not plan:
+            return
+        clvl = plan.get("level", 1)
+        cid = plan["char_id"]
+        sidx = plan["skill_index"]
+        # 避免双路径（TRAIN_FINISH + training_completed）重复插入已完成的记录
+        cur = get_current_plan(cid, sidx)
+        if cur and cur["status"] == "completed" and cur["level"] == clvl:
+            logger.debug(f"已完成记录已存在，跳过：{cid} 技能{sidx} Lv{clvl}")
+            return
+        insert_plan(cid, sidx, "completed", level=clvl)
+        if clvl < 3:
+            insert_plan(cid, sidx, "pending", level=clvl + 1)
+
     def skill_upgrade(self, skill):
         try:
             if "|" in skill:
@@ -1471,6 +1493,7 @@ class BaseSchedulerSolver(SceneGraphSolver, BaseMixin):
                     self.enter_room("train")
                 elif scene == Scene.TRAIN_FINISH:
                     self.tap((self.recog.w * 0.05, self.recog.h * 0.95), interval=0.5)
+                    self._on_training_completed()
                 elif scene == Scene.TRAIN_MAIN:
                     if tasks[0] == "collect":
                         completed = self.find("training_completed")
@@ -1478,6 +1501,7 @@ class BaseSchedulerSolver(SceneGraphSolver, BaseMixin):
                             logger.debug("训练完成")
                             self.tap(completed, interval=3)
                             del tasks[0]
+                            self._on_training_completed()
                         else:
                             if self.find("training_idle"):
                                 logger.debug("训练室空闲，移除任务")
@@ -1978,14 +2002,14 @@ class BaseSchedulerSolver(SceneGraphSolver, BaseMixin):
         pending = []
         try:
             from arknights_mower.utils.mastery_db import (
-                get_pending_plans,
+                get_pending_only,
                 has_in_progress_plan,
             )
 
             if has_in_progress_plan():
                 pass
             else:
-                pending = get_pending_plans()
+                pending = get_pending_only()
         except Exception:
             pass
         if pending and not self.find_next_task(task_type=TaskTypes.SKILL_UPGRADE):
@@ -3368,19 +3392,24 @@ class BaseSchedulerSolver(SceneGraphSolver, BaseMixin):
             self.switch_arrange_order("技能", room)
             exists.extend(selected)
             logger.info(exists)
-            click_order = []
-            for a in agents:
-                if a in exists:
-                    click_order.append(exists.index(a))
+            # 清空后按名字重新选择：切换排序会改变干员位置，
+            # 如果按固定坐标重选，会选到排序后排在前面但非计划内的干员。
+            self.tap((self.recog.w * 0.38, self.recog.h * 0.95), interval=0.5)
+            remaining = list(agents)
+            _swipe = 0
+            while remaining and _swipe <= max_swipe:
+                changed, ret = self.scan_agent(remaining, full_scan=True)
+                if changed:
+                    continue
+                if ret and len(ret) >= 2 and ret[-2][1] and ret[0][1]:
+                    st = ret[-2][1][0]
+                    ed = ret[0][1][0]
+                    self.swipe_noinertia(st, (ed[0] - st[0], 0))
+                    _swipe += 1
                 else:
-                    raise Exception("检测到干员选择错误，重新选择")
-            if click_order:
-                # 清空
-                self.tap((self.recog.w * 0.38, self.recog.h * 0.95), interval=0.5)
-                for p_idx in click_order:
-                    x = self.recog.w * position[p_idx][0]
-                    y = self.recog.h * position[p_idx][1]
-                    self.tap((x, y), interval=0)
+                    break
+            if remaining:
+                raise Exception("检测到干员选择错误，重新选择")
         logger.debug("验证干员选择..")
         self.swipe_left(right_swipe, last_special_filter)
         self.switch_arrange_order("技能", room)

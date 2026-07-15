@@ -164,6 +164,8 @@ class MasterySync:
         self._schedule_next(remaining[0])
 
     def _refresh_skland_data(self):
+        # cultivate().start() does the login and stores credentials in
+        # skland_cache; PlayerInfoClient reuses them via restore_cached_session()
         from arknights_mower.solvers.cultivate_depot import cultivate
 
         cultivate().start()

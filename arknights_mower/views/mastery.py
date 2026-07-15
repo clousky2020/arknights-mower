@@ -6,6 +6,7 @@ from flask import Blueprint, abort, current_app, request
 from flask.views import MethodView
 
 from arknights_mower.utils.mastery_db import (
+    cancel_pending_plan,
     get_all_history,
     get_all_plans,
     get_all_routes,
@@ -177,6 +178,16 @@ class MasteryPlanView(MethodView):
                         "reason": f"unknown status {existing['status']}",
                     }
                 )
+        # 同步：取消已取消的计划
+        submitted = set()
+        for name, skill_index in data.items():
+            char_id = name_to_id.get(name)
+            if char_id is not None:
+                submitted.add((char_id, skill_index))
+        for p in get_all_plans():
+            if p["status"] == PlanStatus.PENDING:
+                if (p["char_id"], p["skill_index"]) not in submitted:
+                    cancel_pending_plan(p["char_id"], p["skill_index"])
         return {"results": results}
 
 

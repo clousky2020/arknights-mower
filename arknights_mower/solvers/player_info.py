@@ -40,6 +40,8 @@ class PlayerInfoClient:
 
     def _ensure_session(self, item, force_refresh: bool = False):
         if not force_refresh:
+            # Try to reuse credential from shared cache (populated by
+            # e.g. cultivate.start() via _refresh_skland_data)
             session = restore_cached_session(item.account)
             if session:
                 self.sign_token = session["sign_token"]

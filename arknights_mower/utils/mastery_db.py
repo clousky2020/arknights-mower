@@ -313,3 +313,21 @@ def has_train_group_plan() -> bool:
     except Exception:
         pass
     return False
+
+
+def cancel_pending_plan(char_id: str, skill_index: int) -> bool:
+    """Delete all pending plan rows for a character skill pair."""
+    conn = _db()
+    try:
+        _ensure_tables(conn)
+        cursor = conn.execute(
+            "DELETE FROM mastery_plan WHERE char_id=? AND skill_index=? AND status='pending'",
+            (char_id, skill_index),
+        )
+        conn.commit()
+        return cursor.rowcount > 0
+    except Exception as e:
+        logger.error(f"cancel_pending_plan failed: {e}")
+        return False
+    finally:
+        conn.close()
