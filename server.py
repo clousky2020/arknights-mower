@@ -912,6 +912,7 @@ def workshop_auto_config():
         planned_skills = req.get("planned_skills", [])
         if planned_skills:
             settings = compute_workshop_config(
+                planned_skills=planned_skills,
                 fodder_operators=fodder_ops,
                 t5_operators=t5_ops,
                 book_operators=book_ops,
