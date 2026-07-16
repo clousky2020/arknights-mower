@@ -280,7 +280,8 @@ def get_mastery_recommendations():
 
 
 def compute_workshop_config(
-    fodder_operators=None, t5_operators=None, book_operators=None, planned_skills=None
+    fodder_operators=None, t5_operators=None, book_operators=None,
+    planned_skills=None, keep_operators=None,
 ):
     """根据当前专精计划和仓库库存，计算合成配置（与前端自动合成配置逻辑一致）"""
     if fodder_operators is None:
@@ -364,11 +365,16 @@ def compute_workshop_config(
     }
 
     if not planned_keys:
-        return compute_default_workshop_config(
-            fodder_operators=fodder_operators,
-            t5_operators=t5_operators,
-            book_operators=book_operators,
-        )
+        if planned_skills is not None:
+            # 前端传入 planned_skills 但全被过滤（如全 M3），返回默认配置
+            return compute_default_workshop_config(
+                fodder_operators=fodder_operators,
+                t5_operators=t5_operators,
+                book_operators=book_operators,
+            )
+        else:
+            # 调度器路径，无计划时返回 None 保留现有配置
+            return None
 
     rec_result = get_mastery_recommendations()
     operators = rec_result.get("operators", [])
@@ -432,7 +438,7 @@ def compute_workshop_config(
                 {
                     "item_names": [name],
                     "children_lower_limit": 0,
-                    "self_upper_limit": demand,
+                    "self_upper_limit": max(0, demand - inv_of(name)),
                 }
             )
 
@@ -443,7 +449,7 @@ def compute_workshop_config(
                 {
                     "item_names": [name],
                     "children_lower_limit": 0,
-                    "self_upper_limit": demand,
+                    "self_upper_limit": max(0, demand - inv_of(name)),
                 }
             )
 
@@ -453,14 +459,14 @@ def compute_workshop_config(
             {
                 "item_names": ["技巧概要·卷3"],
                 "children_lower_limit": 0,
-                "self_upper_limit": book_count,
+                "self_upper_limit": max(0, book_count - inv_of("技巧概要·卷3")),
             }
         ]
         if book_count > 0
         else []
     )
 
-    return (
+    result = (
         [
             {"operator": op, "enabled": True, "items": fodder_items + t4_items}
             if op == "九色鹿"
@@ -473,6 +479,11 @@ def compute_workshop_config(
             for op in book_operators
         ]
     )
+    if keep_operators is not None:
+        result = [r for r in result if r["operator"] in keep_operators]
+    if not result:
+        return None
+    return result
 
 
 def compute_default_workshop_config(

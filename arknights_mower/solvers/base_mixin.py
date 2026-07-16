@@ -184,35 +184,32 @@ class BaseMixin:
                 if not train
                 else operator_list_train(self.recog.img)
             )  # 返回的顺序是从左往右从上往下
-            # 选人界面会列出全部干员（不止已选中的），所以按“是否都出现”校验，
-            # 而非严格按位置一一对应——选人列表里夹杂未选中的干员是正常的。
-            recognized = [name for name, _ in ret if name]
-            missing = [a for a in agent if a not in recognized]
-            if missing:
-                # 单次识别可能因界面动画未稳定 / 模板匹配置信度低（operator_list 低置信返回空串）
-                # 而误判为选择错误，这里重试读屏而非直接判定失败
-                if retry < 2:
-                    logger.debug(
-                        f"verify_agent 第 {retry + 1} 次匹配失败 缺失={missing}，重试读屏"
-                    )
-                    logger.info(
-                        f"[诊断] verify_agent 预期={list(agent)} 实际识别={recognized}"
-                    )
-                    self.sleep(0.5)
-                    self.recog.update()
-                    return self.verify_agent(
-                        agent,
-                        room,
-                        error_count,
-                        max_agent_count,
-                        full_scan=False,
-                        train=train,
-                        retry=retry + 1,
-                    )
-                logger.info(
-                    f"[诊断] verify_agent 最终失败 预期={list(agent)} 实际识别={recognized}"
-                )
-                return False
+            # 提取识别出来的干员的名字
+            index = 0
+            for name, scope in ret:
+                if index >= len(agent):
+                    return True
+                if name != agent[index]:
+                    # 单次识别可能因界面动画未稳定 / 模板匹配置信度低（operator_list 低置信返回空串）
+                    # 而误判为选择错误，这里重试读屏而非直接判定失败
+                    if retry < 2:
+                        logger.debug(
+                            f"verify_agent 第 {retry + 1} 次匹配失败"
+                            f"({name!r} != {agent[index]!r})，重试读屏"
+                        )
+                        self.sleep(0.5)
+                        self.recog.update()
+                        return self.verify_agent(
+                            agent,
+                            room,
+                            error_count,
+                            max_agent_count,
+                            full_scan=False,
+                            train=train,
+                            retry=retry + 1,
+                        )
+                    return False
+                index += 1
             return True
         except Exception as e:
             error_count += 1

@@ -1073,6 +1073,8 @@ class BaseSchedulerSolver(SceneGraphSolver, BaseMixin):
                 t.plan_key = f"{char_id}_{skill_index}"
                 self.tasks.append(t)
                 logger.info(f"触发下一级专精: {name} 技能{sk}")
+            # 训练完成，触发加工站配置更新
+            self._auto_schedule_mastery_after_scan()
         except Exception as e:
             logger.debug(f"refresh_skill_time: _handle_training_complete failed: {e}")
 
@@ -3392,24 +3394,19 @@ class BaseSchedulerSolver(SceneGraphSolver, BaseMixin):
             self.switch_arrange_order("技能", room)
             exists.extend(selected)
             logger.info(exists)
-            # 清空后按名字重新选择：切换排序会改变干员位置，
-            # 如果按固定坐标重选，会选到排序后排在前面但非计划内的干员。
-            self.tap((self.recog.w * 0.38, self.recog.h * 0.95), interval=0.5)
-            remaining = list(agents)
-            _swipe = 0
-            while remaining and _swipe <= max_swipe:
-                changed, ret = self.scan_agent(remaining, full_scan=True)
-                if changed:
-                    continue
-                if ret and len(ret) >= 2 and ret[-2][1] and ret[0][1]:
-                    st = ret[-2][1][0]
-                    ed = ret[0][1][0]
-                    self.swipe_noinertia(st, (ed[0] - st[0], 0))
-                    _swipe += 1
+            click_order = []
+            for a in agents:
+                if a in exists:
+                    click_order.append(exists.index(a))
                 else:
-                    break
-            if remaining:
-                raise Exception("检测到干员选择错误，重新选择")
+                    raise Exception("检测到干员选择错误，重新选择")
+            if click_order:
+                # 清空
+                self.tap((self.recog.w * 0.38, self.recog.h * 0.95), interval=0.5)
+                for p_idx in click_order:
+                    x = self.recog.w * position[p_idx][0]
+                    y = self.recog.h * position[p_idx][1]
+                    self.tap((x, y), interval=0)
         logger.debug("验证干员选择..")
         self.swipe_left(right_swipe, last_special_filter)
         self.switch_arrange_order("技能", room)
@@ -4909,10 +4906,18 @@ class BaseSchedulerSolver(SceneGraphSolver, BaseMixin):
                 f"skipped={len(res.get('skipped', []))}"
             )
 
+            # 筛选心情 >= 5 的 t5 加工干员
+            keep_ops = []
+            for op in config.conf.t5_operators:
+                operator_data = self.op_data.operators.get(op)
+                if operator_data and operator_data.mood >= 5:
+                    keep_ops.append(op)
+
             new_settings = compute_workshop_config(
                 fodder_operators=config.conf.fodder_operators,
                 t5_operators=config.conf.t5_operators,
                 book_operators=config.conf.book_operators,
+                keep_operators=keep_ops if keep_ops else None,
             )
             if new_settings is not None:
                 from arknights_mower.utils.config.conf import (
